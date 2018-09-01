@@ -1,0 +1,45 @@
+apply from: buildConfig
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def dep = rootProject.ext.dependencies
+
+    api dep.appcompatV7
+    testImplementation dep.junit
+    androidTestImplementation dep.runner
+    androidTestImplementation dep.espresso
+
+    /**
+     * 引用一些基本配置
+     * baseQuickRecyclerAdapter,smartRefreshLayout等
+     */
+    api dep.design
+    api dep.cardview
+    api dep.multidex
+
+    api dep.recycleview
+    api dep.baseQuickRecyclerViewAdapter
+    api dep.smartRefreshLayout
+
+    api dep.glide
+
+    api dep.gson
+
+    api dep.vLayout
+
+    api dep.retrofit
+    api dep.okHttpInterceptor
+    api dep.rxJavaAdapter
+    api dep.gsonAdapter
+
+    api dep.rxAndroid
+    api dep.rxJava
+    api dep.rxBinding
+
+    api dep.immersionBar
+
+    api dep.rxToolKit
+
+    api dep.aRouter
+}

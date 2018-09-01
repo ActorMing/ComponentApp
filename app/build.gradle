@@ -1,0 +1,21 @@
+apply from: buildConfig
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def dep = rootProject.ext.dependencies
+
+    api dep.appcompatV7
+    testImplementation dep.junit
+    androidTestImplementation dep.runner
+    androidTestImplementation dep.espresso
+
+    implementation project(":componentBase")
+
+
+    // 如果不是独立的则需要编译module
+    if (!rootProject.ext.isAlone) {
+        implementation project(":moduleTest")
+        implementation project(":moduleOther")
+    }
+}

@@ -1,0 +1,116 @@
+if (isIndependent()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+
+    def androidConfig = rootProject.ext.androidConfig
+
+    compileSdkVersion androidConfig.compileSdkVersion
+    buildToolsVersion androidConfig.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode androidConfig.versionCode
+        versionName androidConfig.versionName
+        testInstrumentationRunner androidConfig.junitRunner
+
+        if (isIndependent()) {
+            // replace your packageName
+            applicationId "com.lazy.component.${this.name}"
+            println("this == ${this.name} , applicationId")
+        }
+
+        resourcePrefix "${project.name}_"
+
+        // aRouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 防止编译的时候oom、GC
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    // 解决.9图问题
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            /**
+             * component 开头的不需要更换 AndroidManifest文件路径
+             * app 开头的也不需要更换 AndroidManifest文件路径
+             */
+            if (this.name.startsWith("module")) {
+                /**
+                 * 未开启独立编译 使用 release/AndroidManifest.xml
+                 * 开启独立编译   使用 debug/AndroidManifest.xml
+                 */
+                if (rootProject.ext.isAlone) {
+                    manifest.srcFile 'src/main/module/AndroidManifest.xml'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                    java {
+                        // 排除java/debug文件夹下的所有文件
+                        exclude '*module'
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 通过修改 project - build.gradle的 is_debug 值来控制module 是否可以独立编译
+ * @return true ：module 是 app ，isAlone = true 并且 module 命名为 `module_` 开头
+ */
+def isIndependent() {
+    // 是app module ，独立编译
+    if (this.name.startsWith("app")) {
+        println("this module's name is not startsWith [module] , this.name = ${this.name}")
+        return true
+    }
+
+    // component开始的都为library
+    if (this.name.startsWith("component")) {
+        return false
+    }
+
+    // 没有开启独立编译选项，所以为library
+    if (!rootProject.ext.isAlone) {
+        println("not independent!")
+        return false
+    }
+
+    //开启了独立编译选项，但是模块名称不是module_ 开头，所以为 library
+    if (!this.name.startsWith("module")) {
+        println("this module's name is not startsWith [module] , this.name = ${this.name}")
+        return false
+    }
+    println("this module is independent!")
+    return true
+}
