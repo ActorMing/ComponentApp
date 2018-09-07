@@ -29,7 +29,6 @@ public class BaseApp extends Application {
         return mBaseApplication;
     }
 
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -41,21 +40,16 @@ public class BaseApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        RouterConfig.init(this, com.lazy.component.commpoentbase.BuildConfig.DEBUG);
-
-        DensityUtils.setDensity(this);
-
         mBaseApplication = this;
+        RouterConfig.init(mBaseApplication, com.lazy.component.commpoentbase.BuildConfig.DEBUG);
+        DensityUtils.setDensity(this);
         context = this.getApplicationContext();
-
-        Utils.init(this);
+        Utils.init(mBaseApplication);
         if (inMainProcess()) {
-            SharedPreferencesUtils.init(this);
+            SharedPreferencesUtils.init(mBaseApplication);
             // 数据储存
             // DataKeeper.init(this);
         }
-
         setRxErrorHandler();
     }
 
