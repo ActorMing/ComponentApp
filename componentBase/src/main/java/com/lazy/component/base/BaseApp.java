@@ -3,12 +3,11 @@ package com.lazy.component.base;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.BuildConfig;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.lazy.component.arouter.RouterConfig;
+import com.lazy.component.util.DensityUtils;
 import com.lazy.component.util.SharedPreferencesUtils;
 import com.lazy.component.util.Utils;
 
@@ -44,6 +43,8 @@ public class BaseApp extends Application {
         super.onCreate();
 
         RouterConfig.init(this, com.lazy.component.commpoentbase.BuildConfig.DEBUG);
+
+        DensityUtils.setDensity(this);
 
         mBaseApplication = this;
         context = this.getApplicationContext();

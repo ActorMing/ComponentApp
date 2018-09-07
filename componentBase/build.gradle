@@ -36,10 +36,14 @@ dependencies {
     api dep.rxAndroid
     api dep.rxJava
     api dep.rxBinding
+    api dep.rxPermission
 
     api dep.immersionBar
 
     api dep.rxToolKit
 
     api dep.aRouter
+}
+repositories {
+    mavenCentral()
 }
