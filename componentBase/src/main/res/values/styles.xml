@@ -24,8 +24,14 @@
         <!-- 解决启动白屏问题 -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
 
         <!-- 启动白屏还是略微有点不足 需要闪屏页图片来进一步的处理 -->
-        <item name="android:windowBackground">@drawable/launcher_bg</item>
+        <!--<item name="android:windowBackground">@drawable/launcher_bg</item>-->
+
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>
