@@ -33,6 +33,12 @@ ext {
             constraintLayout            : "com.android.support.constraint:constraint-layout:1.1.2",
 
             /**
+             * AndroidAutoSize
+             * https://github.com/JessYanCoding/AndroidAutoSize
+             */
+            autoSize                    : "me.jessyan:autosize:1.0.6",
+
+            /**
              * glide
              * https://github.com/bumptech/glide
              */

@@ -10,6 +10,8 @@ dependencies {
     androidTestImplementation dep.runner
     androidTestImplementation dep.espresso
 
+    api dep.autoSize
+
     /**
      * 引用一些基本配置
      * baseQuickRecyclerAdapter,smartRefreshLayout等
