@@ -45,6 +45,11 @@ dependencies {
     api dep.rxToolKit
 
     api dep.aRouter
+
+    api dep.dagger
+    annotationProcessor dep.daggerAnnotationProcessor
+
+    api dep.stringAdapter
 }
 repositories {
     mavenCentral()

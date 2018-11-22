@@ -8,27 +8,52 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-
+/**
+ * @author :lazyMing
+ * email   :407555147@qq.com
+ * date    :2018/11/22
+ * desc    :SharedPreferences工具类
+ * address :
+ * update  :
+ */
 public class SharedPreferencesUtils {
+
+    private static SharedPreferencesUtils instance;
+
+    private SharedPreferencesUtils() {
+    }
+
+    public static SharedPreferencesUtils getInstance() {
+        if (instance == null) {
+            synchronized (SharedPreferencesUtils.class) {
+                if (instance == null) {
+                    instance = new SharedPreferencesUtils();
+                }
+            }
+        }
+        return instance;
+    }
+
     /**
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "share_data";
     private static Context sContext;
 
+    public void init(Application slApplication) {
+        sContext = slApplication.getApplicationContext();
+    }
+
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
-     * @param context
      * @param key
      * @param object
      */
-    public static void put(Context context, String key, Object object) {
-
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static void put(String key, Object object) {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-
         if (object instanceof String) {
             editor.putString(key, (String) object);
         } else if (object instanceof Integer) {
@@ -42,12 +67,16 @@ public class SharedPreferencesUtils {
         } else {
             editor.putString(key, object.toString());
         }
-
         SharedPreferencesCompat.apply(editor);
     }
 
+    /**
+     * 保存string数据
+     *
+     * @param key
+     * @param object
+     */
     public static void put(String key, String object) {
-
         SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -60,15 +89,13 @@ public class SharedPreferencesUtils {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      *
-     * @param context
      * @param key
      * @param defaultObject
      * @return
      */
-    public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static Object get(String key, Object defaultObject) {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
-
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
         } else if (defaultObject instanceof Integer) {
@@ -80,10 +107,15 @@ public class SharedPreferencesUtils {
         } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
-
         return null;
     }
 
+    /**
+     * 根据key获取相对应的String类型的value数据
+     *
+     * @param key
+     * @return
+     */
     public static String get(String key) {
         SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return sp.getString(key, "");
@@ -92,11 +124,10 @@ public class SharedPreferencesUtils {
     /**
      * 移除某个key值已经对应的值
      *
-     * @param context
      * @param key
      */
-    public static void remove(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static void remove(String key) {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
@@ -105,11 +136,9 @@ public class SharedPreferencesUtils {
 
     /**
      * 清除所有数据
-     *
-     * @param context
      */
-    public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static void clear() {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
@@ -119,12 +148,11 @@ public class SharedPreferencesUtils {
     /**
      * 查询某个key是否已经存在
      *
-     * @param context
      * @param key
      * @return
      */
-    public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static boolean contains(String key) {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
     }
@@ -132,17 +160,12 @@ public class SharedPreferencesUtils {
     /**
      * 返回所有的键值对
      *
-     * @param context
      * @return
      */
-    public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static Map<String, ?> getAll() {
+        SharedPreferences sp = sContext.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return sp.getAll();
-    }
-
-    public static void init(Application slApplication) {
-        sContext = slApplication.getApplicationContext();
     }
 
     /**
@@ -165,7 +188,6 @@ public class SharedPreferencesUtils {
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
             }
-
             return null;
         }
 

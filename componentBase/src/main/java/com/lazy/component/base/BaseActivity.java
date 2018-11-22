@@ -7,8 +7,10 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.lazy.component.base.contract.BaseView;
 import com.lazy.component.util.TokenUtils;
 import com.lazy.component.widget.LoadingDialog;
+import com.vondear.rxtool.RxActivityTool;
 import com.vondear.rxtool.view.RxToast;
 
 /**
@@ -20,24 +22,23 @@ import com.vondear.rxtool.view.RxToast;
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
 
 
-    protected P mPresenter;
     protected ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mPresenter = createPresenter();
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         if (isImmersionBarEnabled()) {
             initImmersionBar();
         }
         init(savedInstanceState);
-
+        RxActivityTool.addActivity(this);
     }
 
-    protected P createPresenter() {
-        return mPresenter;
-    }
+    /**
+     * detach view
+     */
+    protected abstract void detach();
 
     /**
      * 获取布局资源id
@@ -103,10 +104,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detach();//在Presenter中解绑释放view
-            mPresenter = null;
-        }
+        RxActivityTool.finishActivity(this);
+        detach();
 
         // destroy the  mImmersionBar
         if (mImmersionBar != null) {

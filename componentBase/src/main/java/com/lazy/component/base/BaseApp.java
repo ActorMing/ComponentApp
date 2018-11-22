@@ -1,12 +1,15 @@
 package com.lazy.component.base;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
 
 import com.lazy.component.arouter.RouterConfig;
+import com.lazy.component.config.LazyConfig;
+import com.lazy.component.di.component.AppComponent;
+import com.lazy.component.di.component.DaggerAppComponent;
+import com.lazy.component.di.module.ApiBaseServerModule;
+import com.lazy.component.di.module.AppModule;
 import com.lazy.component.util.DensityUtils;
 import com.lazy.component.util.SharedPreferencesUtils;
 import com.lazy.component.util.Utils;
@@ -23,10 +26,15 @@ import io.reactivex.plugins.RxJavaPlugins;
 public class BaseApp extends Application {
 
     private static BaseApp mBaseApplication;
+    private static AppComponent appComponent;
     public static Context context;
 
     public static BaseApp getIns() {
         return mBaseApplication;
+    }
+
+    public static AppComponent getAppComponent() {
+        return appComponent;
     }
 
     @Override
@@ -45,12 +53,24 @@ public class BaseApp extends Application {
         DensityUtils.setDensity(this);
         context = this.getApplicationContext();
         Utils.init(mBaseApplication);
-        if (inMainProcess()) {
-            SharedPreferencesUtils.init(mBaseApplication);
-            // 数据储存
-            // DataKeeper.init(this);
-        }
-        setRxErrorHandler();
+        initDagger();
+        initLazyConfig();
+        SharedPreferencesUtils.getInstance().init(mBaseApplication);
+        // 数据储存
+        // DataKeeper.init(this);
+    }
+
+    private static void initDagger() {
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(mBaseApplication.getApplicationContext()))
+                .apiBaseServerModule(new ApiBaseServerModule())
+                .build();
+        appComponent.inject(mBaseApplication);
+    }
+
+    private void initLazyConfig() {
+        LazyConfig.init()
+                .setBaseHttpUrl("http://www.baidu.com");
     }
 
     /**
@@ -64,38 +84,4 @@ public class BaseApp extends Application {
             }
         });
     }
-
-    public boolean inMainProcess() {
-        String packageName = getPackageName();
-        String processName = getProcessName(this);
-        return packageName.equals(processName);
-    }
-
-    public String getProcessName(Context context) {
-        String processName = null;
-
-        // ActivityManager
-        ActivityManager am = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE));
-
-        while (true) {
-            for (ActivityManager.RunningAppProcessInfo info : am.getRunningAppProcesses()) {
-                if (info.pid == android.os.Process.myPid()) {
-                    processName = info.processName;
-                    break;
-                }
-            }
-
-            if (!TextUtils.isEmpty(processName)) {
-                return processName;
-            }
-
-            try {
-                Thread.sleep(100L);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-
 }

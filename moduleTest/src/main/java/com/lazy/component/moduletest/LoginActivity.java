@@ -2,7 +2,9 @@ package com.lazy.component.moduletest;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,8 +15,16 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.lazy.component.arouter.RouterConstants;
+import com.lazy.component.base.BaseActivity;
+import com.lazy.component.base.BaseApp;
+import com.lazy.component.moduletest.bean.Student;
+import com.lazy.component.moduletest.di.component.DaggerLoginComponent;
+import com.lazy.component.moduletest.di.module.LoginModule;
+import com.lazy.component.moduletest.mvp.contract.LoginContract;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -30,22 +40,46 @@ import io.reactivex.disposables.Disposable;
  * address :
  * update  :
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private EditText etName, etPassword;
-    private Button btnLogin, btnVerify;
+    private Button btnLogin, btnVerify, btnRequest;
 
     private CompositeDisposable mDisposable = new CompositeDisposable();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_loginctivity);
+    @Inject
+    Student mStudent;
 
+    @Inject
+    LoginContract.Presenter mPresenter;
+
+    @Override
+    protected void detach() {
+        mPresenter.recyclerRes();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_loginctivity;
+    }
+
+    @Override
+    protected void init(@Nullable Bundle savedInstanceState) {
         initViews();
         initEvents();
         rxEditText();
         countdown();
+        initDagger();
+        Log.e("login", mStudent.toString());
+        Log.e("login", mPresenter == null ? "null" : "not null");
+    }
+
+    private void initDagger() {
+        DaggerLoginComponent.builder()
+                .appComponent(BaseApp.getAppComponent())
+                .loginModule(new LoginModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -61,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
         btnVerify = findViewById(R.id.btn_verify);
+        btnRequest = findViewById(R.id.btn_request);
     }
 
     private void initEvents() {

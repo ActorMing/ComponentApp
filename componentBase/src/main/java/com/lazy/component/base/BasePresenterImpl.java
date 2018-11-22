@@ -1,5 +1,7 @@
 package com.lazy.component.base;
 
+import com.lazy.component.base.contract.BaseView;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 

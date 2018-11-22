@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.lazy.component.base.BasePresenter;
 import com.lazy.component.base.BaseResponse;
-import com.lazy.component.base.BaseView;
+import com.lazy.component.base.contract.BaseView;
 import com.lazy.component.constant.ApiStatusCode;
 
 import io.reactivex.Observer;

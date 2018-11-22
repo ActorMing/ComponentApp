@@ -12,6 +12,7 @@ dependencies {
     def dep = rootProject.ext.dependencies
     annotationProcessor dep.aRouterAnnotation
     annotationProcessor dep.aRouterCompiler
+    annotationProcessor dep.daggerAnnotationProcessor
     implementation dep.appcompatV7
     implementation dep.design
     implementation dep.constraintLayout

@@ -1,4 +1,4 @@
-package com.lazy.component.base;
+package com.lazy.component.base.contract;
 
 /**
  * Created on 2018-07-27

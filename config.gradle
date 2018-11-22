@@ -34,9 +34,18 @@ ext {
 
             /**
              * AndroidAutoSize
+             *
              * https://github.com/JessYanCoding/AndroidAutoSize
              */
             autoSize                    : "me.jessyan:autosize:1.0.6",
+
+            /**
+             * dagger.android
+             *
+             * https://github.com/google/dagger
+             */
+            dagger                      : "com.google.dagger:dagger:2.19",
+            daggerAnnotationProcessor   : "com.google.dagger:dagger-compiler:2.19",
 
             /**
              * glide

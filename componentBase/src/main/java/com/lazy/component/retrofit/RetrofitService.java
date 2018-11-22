@@ -10,5 +10,5 @@ package com.lazy.component.retrofit;
  */
 public interface RetrofitService {
 
-
+    
 }

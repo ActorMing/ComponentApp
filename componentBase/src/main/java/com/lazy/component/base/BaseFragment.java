@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.lazy.component.base.contract.BaseView;
 import com.lazy.component.widget.LoadingDialog;
 import com.vondear.rxtool.view.RxToast;
 
