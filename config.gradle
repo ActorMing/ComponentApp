@@ -4,8 +4,8 @@ ext {
 
 
     androidConfig = [
-            compileSdkVersion: 27,
-            buildToolsVersion: "27.0.3",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
             applicationId    : "com.suwei.sharelink",
             minSdkVersion    : 19,
             targetSdkVersion : 25,
@@ -14,7 +14,10 @@ ext {
             supportVersion   : "27.1.1",
             junitRunner      : "android.support.test.runner.AndroidJUnitRunner"]
 
-    supportVersion = "27.1.1"
+    supportVersion = "28.1.1"
+
+    material_component_version = '1.1.0-alpha01'
+
 
     // 依赖库管理
     dependencies = [
@@ -22,15 +25,19 @@ ext {
              * 基本配置
              */
             junit                       : "junit:junit:4.12",
-            runner                      : "com.android.support.test:runner:1.0.2",
-            espresso                    : "com.android.support.test.espresso:espresso-core:3.0.2",
-            appcompatV7                 : "com.android.support:appcompat-v7:${supportVersion}",
-            design                      : "com.android.support:design:${supportVersion}",
-            cardview                    : "com.android.support:cardview-v7:${supportVersion}",
-            recycleview                 : "com.android.support:recyclerview-v7:${supportVersion}",
-            supportV4                   : "com.android.support:support-v4:${supportVersion}",
-            multidex                    : "com.android.support:multidex:1.0.2",
-            constraintLayout            : "com.android.support.constraint:constraint-layout:1.1.2",
+            runner                      : "androidx.test:runner:1.1.0",
+            espresso                    : "androidx.test.espresso:espresso-core:3.1.0",
+            appcompat                   : "androidx.appcompat:appcompat:1.0.2",
+            design                      : "androidx.support:design:${supportVersion}",
+            cardview                    : "androidx.cardview:cardview:1.0.0",
+            recycleview                 : "androidx.recyclerview:recyclerview:1.0.0",
+            constraintLayout            : "androidx.constraintlayout:constraintlayout:1.1.2",
+
+            /**
+             * material
+             * https://blog.csdn.net/u012400885/article/details/80426117
+             */
+            material                    : "com.google.android.material:material:${material_component_version}",
 
             /**
              * AndroidAutoSize

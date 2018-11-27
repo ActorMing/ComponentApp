@@ -3,17 +3,17 @@ package com.lazy.component.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.lazy.component.constant.Constants;
+import static com.lazy.component.constant.StringConstants.TOKEN;
 
 
 /**
-  * @author :lazyMing
-  * email   :407555147@qq.com
-  * date    :2018/8/28
-  * desc    :TokenUtils
-  * address :
-  * update  :
-  */
+ * @author :lazyMing
+ * email   :407555147@qq.com
+ * date    :2018/8/28
+ * desc    :TokenUtils
+ * address :
+ * update  :
+ */
 public class TokenUtils {
 
     /**
@@ -22,7 +22,7 @@ public class TokenUtils {
      * @return boolean
      */
     public static boolean isLogin() {
-        String token = PreferencesUtils.getString(Utils.getApp().getApplicationContext(), Constants.PreKey.TOKEN, "");
+        String token = PreferencesUtils.getString(Utils.getApp().getApplicationContext(), TOKEN, "");
         return !TextUtils.isEmpty(token);
     }
 
@@ -32,7 +32,7 @@ public class TokenUtils {
      * @return boolean
      */
     public static String getToken() {
-        return PreferencesUtils.getString(Utils.getApp().getApplicationContext(), Constants.PreKey.TOKEN, "");
+        return PreferencesUtils.getString(Utils.getApp().getApplicationContext(), TOKEN, "");
     }
 
     /**
@@ -41,7 +41,7 @@ public class TokenUtils {
      * @param context context
      */
     public static void saveToken(Context context, String token) {
-        PreferencesUtils.putString(context, Constants.PreKey.TOKEN, token);
+        PreferencesUtils.putString(context, TOKEN, token);
     }
 
     /**
@@ -50,7 +50,7 @@ public class TokenUtils {
      * @param context context
      */
     public static void clearToken(Context context) {
-        PreferencesUtils.putString(context, Constants.PreKey.TOKEN, "");
+        PreferencesUtils.putString(context, TOKEN, "");
     }
 
 
@@ -60,6 +60,6 @@ public class TokenUtils {
      * @param context context
      */
     public static void clearTokenAsync(Context context) {
-        PreferencesUtils.putString(context, Constants.PreKey.TOKEN, "", true);
+        PreferencesUtils.putString(context, TOKEN, "", true);
     }
 }

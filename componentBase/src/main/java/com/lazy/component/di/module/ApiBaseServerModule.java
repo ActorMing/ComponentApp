@@ -119,6 +119,8 @@ public class ApiBaseServerModule {
      *
      * @return
      */
+    @Provides
+    @Singleton
     HashMap<String, String> providerHeaderParamsMap() {
         HashMap<String, String> headerMap = new HashMap<>(2);
         headerMap.put(TOKEN, DataManager.getInstance().getToken());
@@ -365,12 +367,10 @@ public class ApiBaseServerModule {
             sc.init(null, new TrustManager[]{new X509TrustManager() {
                 @Override
                 public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
                 }
 
                 @Override
                 public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
                 }
 
                 @Override

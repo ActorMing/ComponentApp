@@ -20,7 +20,6 @@ public abstract class BasePresenterImpl<V extends BaseView> implements BasePrese
 
     protected V view;
 
-
     @Override
     public void detach() {
         this.view = null;
@@ -32,7 +31,9 @@ public abstract class BasePresenterImpl<V extends BaseView> implements BasePrese
 
     }
 
-    //将所有正在处理的Subscription都添加到CompositeSubscription中。统一退出的时候注销观察
+    /**
+     * 将所有正在处理的Subscription都添加到CompositeSubscription中。统一退出的时候注销观察
+     */
     private CompositeDisposable mCompositeDisposable;
 
     /**
@@ -42,8 +43,8 @@ public abstract class BasePresenterImpl<V extends BaseView> implements BasePrese
      */
     @Override
     public void addDisposable(Disposable subscription) {
-        //csb 如果解绑了的话添加 sb 需要新的实例否则绑定时无效的
-        if (mCompositeDisposable == null || mCompositeDisposable.isDisposed()) {
+        // csb 如果解绑了的话添加 sb 需要新的实例否则绑定时无效的
+        if (mCompositeDisposable == null) {
             mCompositeDisposable = new CompositeDisposable();
         }
         mCompositeDisposable.add(subscription);
@@ -54,7 +55,7 @@ public abstract class BasePresenterImpl<V extends BaseView> implements BasePrese
      */
     @Override
     public void unDisposable() {
-        if (mCompositeDisposable != null) {
+        if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
             mCompositeDisposable.dispose();
         }
     }

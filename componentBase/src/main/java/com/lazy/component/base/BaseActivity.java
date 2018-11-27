@@ -1,8 +1,9 @@
 package com.lazy.component.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import com.vondear.rxtool.view.RxToast;
  * @date 2018-07-27
  */
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView {
-
 
     protected ImmersionBar mImmersionBar;
 

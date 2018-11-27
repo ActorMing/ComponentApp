@@ -1,6 +1,6 @@
 package com.lazy.component.config;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * <pre>

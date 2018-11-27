@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             tools:ignore="ResourceName">
+<androidx.constraintlayout.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            tools:ignore="ResourceName">
 
 
     <TextView
@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name"/>
 
-    <android.support.constraint.Barrier
+    <androidx.constraintlayout.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,6 +49,7 @@
         android:id="@+id/et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="@id/et_name"
         app:layout_constraintRight_toRightOf="@id/et_name"
         app:layout_constraintTop_toBottomOf="@id/et_name"/>
@@ -95,4 +96,4 @@
         app:layout_constraintTop_toBottomOf="@id/btn_login"/>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.ConstraintLayout>

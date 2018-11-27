@@ -1,8 +1,7 @@
 package com.lazy.component.moduleother;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.lazy.component.arouter.RouterConstants;
@@ -18,6 +17,11 @@ import com.lazy.component.base.BaseActivity;
  */
 @Route(path = RouterConstants.SHOP_MALL_HOME)
 public class MainActivity extends BaseActivity {
+    @Override
+    protected void detach() {
+
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
