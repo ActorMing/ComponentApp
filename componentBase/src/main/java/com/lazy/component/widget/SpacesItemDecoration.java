@@ -1,17 +1,18 @@
 package com.lazy.component.widget;
 
 import android.graphics.Rect;
-import androidx.appcompat.widget.RecyclerView;
 import android.view.View;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
-  * @author :lazyMing
-  * email   :407555147@qq.com
-  * date    :2018/8/28
-  * desc    : 间距
-  * address :
-  * update  :
-  */
+ * @author :lazyMing
+ * email   :407555147@qq.com
+ * date    :2018/8/28
+ * desc    : 间距
+ * address :
+ * update  :
+ */
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
 

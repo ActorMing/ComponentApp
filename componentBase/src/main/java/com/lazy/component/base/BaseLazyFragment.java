@@ -3,9 +3,10 @@ package com.lazy.component.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.core.app.Fragment;
 
 import com.gyf.barlibrary.ImmersionBar;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * <p> BaseLazyFragment</p>

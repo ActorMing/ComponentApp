@@ -6,13 +6,14 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.AttributeSet;
+
+import com.lazy.component.commpoentbase.R;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.appcompat.widget.AppCompatButton;
-import android.util.AttributeSet;
-
-import com.lazy.component.commpoentbase.R;
 
 /**
  * @author :lazyMing
@@ -73,7 +74,7 @@ public class StateButton extends AppCompatButton {
     }
 
     public StateButton(Context context, AttributeSet attrs) {
-        this(context, attrs, androidx.appcompat.appcompat.R.attr.buttonStyle);
+        this(context, attrs, R.attr.buttonStyle);
     }
 
     public StateButton(Context context, AttributeSet attrs, int defStyleAttr) {
