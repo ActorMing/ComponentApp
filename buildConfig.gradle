@@ -7,6 +7,13 @@ if (isIndependent()) {
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 android {
 
@@ -30,11 +37,11 @@ android {
         resourcePrefix "${project.name}_"
 
         // aRouter
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//            }
+//        }
 
 //        kapt {
 //            arguments {
@@ -147,10 +154,10 @@ dependencies {
 
     api dep.aRouter
     annotationProcessor dep.aRouterAnnotation
-    annotationProcessor dep.aRouterCompiler
+    kapt dep.aRouterCompiler
 
-    api dep.dagger
-    annotationProcessor dep.daggerAnnotationProcessor
+    implementation dep.dagger
+    kapt dep.daggerAnnotationProcessor
 //    api dep.daggerAndroid
 //    api dep.daggerAndroidSupport
 //    annotationProcessor dep.daggerAndroidProcessor

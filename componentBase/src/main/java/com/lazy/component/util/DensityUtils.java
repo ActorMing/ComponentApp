@@ -34,7 +34,7 @@ public class DensityUtils {
      *
      * @param application
      */
-    public static void setDensity(@NonNull Application application) {
+    public static void setDensity(@NonNull final Application application) {
         //获取application的DisplayMetrics
         appDisplayMetrics = application.getResources().getDisplayMetrics();
         //获取状态栏高度

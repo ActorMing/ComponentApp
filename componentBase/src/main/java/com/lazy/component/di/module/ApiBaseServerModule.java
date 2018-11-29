@@ -136,7 +136,7 @@ public class ApiBaseServerModule {
     @HeaderParams
     @Provides
     @Singleton
-    Interceptor providerHeaderInterceptor(HashMap<String, String> headerMap) {
+    Interceptor providerHeaderInterceptor(final HashMap<String, String> headerMap) {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

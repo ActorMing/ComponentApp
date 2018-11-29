@@ -13,4 +13,5 @@ public interface RouterConstants {
 
     String SHOP_CART_MAIN = "/shoping/cart/main";
     String SHOP_MALL_HOME = "/mall/home";
+    String SHOP_MALL_TEST = "/mall/test";
 }

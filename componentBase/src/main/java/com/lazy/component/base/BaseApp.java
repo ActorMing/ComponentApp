@@ -2,7 +2,6 @@ package com.lazy.component.base;
 
 import android.app.Application;
 import android.content.Context;
-import androidx.multidex.MultiDex;
 
 import com.lazy.component.arouter.RouterConfig;
 import com.lazy.component.config.LazyConfig;
@@ -14,6 +13,7 @@ import com.lazy.component.util.DensityUtils;
 import com.lazy.component.util.SharedPreferencesUtils;
 import com.lazy.component.util.Utils;
 
+import androidx.multidex.MultiDex;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 

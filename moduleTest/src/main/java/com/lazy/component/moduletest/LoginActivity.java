@@ -2,8 +2,6 @@ package com.lazy.component.moduletest;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -96,6 +95,31 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         btnLogin = findViewById(R.id.btn_login);
         btnVerify = findViewById(R.id.btn_verify);
         btnRequest = findViewById(R.id.btn_request);
+        btnRequest.setOnClickListener(v -> {
+            ARouter.getInstance()
+                    .build(RouterConstants.SHOP_MALL_TEST)
+                    .navigation(this, new NavigationCallback() {
+                        @Override
+                        public void onFound(Postcard postcard) {
+                            Toast.makeText(LoginActivity.this, "onFound", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onLost(Postcard postcard) {
+                            Toast.makeText(LoginActivity.this, "onLost", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onArrival(Postcard postcard) {
+                            Toast.makeText(LoginActivity.this, "onArrival", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onInterrupt(Postcard postcard) {
+                            Toast.makeText(LoginActivity.this, "onInterrupt", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
     }
 
     private void initEvents() {
