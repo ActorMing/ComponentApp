@@ -1,17 +1,6 @@
 apply from: buildConfig
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    def dep = rootProject.ext.dependencies
-
-    api 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation dep.junit
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-
-    implementation project(":componentBase")
-
 
     // 如果不是独立的则需要编译module
     if (!rootProject.ext.isAlone) {

@@ -12,7 +12,7 @@ ext {
             versionCode      : 1,
             versionName      : "1.0.0",
             supportVersion   : "27.1.1",
-            junitRunner      : "android.support.test.runner.AndroidJUnitRunner"]
+            junitRunner      : "androidx.support.test.runner.AndroidJUnitRunner"]
 
     material_component_version = '1.1.0-alpha01'
 
