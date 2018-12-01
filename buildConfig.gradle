@@ -4,10 +4,10 @@ if (isIndependent()) {
     apply plugin: 'com.android.library'
 }
 
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-apply plugin: 'org.jetbrains.kotlin.android.extensions'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 kapt {
     arguments {
@@ -81,6 +81,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     sourceSets {
         main {
             /**
@@ -146,6 +150,7 @@ dependencies {
     api dep.rxAndroid
     api dep.rxJava
     api dep.rxBinding
+    api dep.rxBindingKotlin
     api dep.rxPermission
 
     api dep.immersionBar
@@ -165,6 +170,8 @@ dependencies {
     api dep.stringAdapter
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation dep.logger
+    
     if (!this.name.startsWith("component")) {
         implementation project(':componentBase')
     }
